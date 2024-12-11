@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+
+<div class="container">
+    <div class="row">
+        <!-- Dashboard -->
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Dashboard</h5>
+                    <p class="card-text">View admin statistics and insights.</p>
+                    <a asp-controller="Admin" asp-action="Dashboard" class="btn btn-light">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Categories</h5>
+                    <p class="card-text">Add, edit, or delete product categories.</p>
+                    <a asp-controller="Categories" asp-action="Index" class="btn btn-light">Manage Categories</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products -->
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Products</h5>
+                    <p class="card-text">Add, edit, or delete products in the store.</p>
+                    <a asp-controller="Products" asp-action="Index" class="btn btn-light">Manage Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Orders -->
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Orders</h5>
+                    <p class="card-text">View and manage customer orders.</p>
+                    <a asp-controller="Orders" asp-action="Index" class="btn btn-light">Manage Orders</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Users</h5>
+                    <p class="card-text">View and manage platform users.</p>
+                    <a asp-controller="Users" asp-action="Index" class="btn btn-light">Manage Users</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Locations -->
+        <div class="col-md-4">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Locations</h5>
+                    <p class="card-text">Add or update location information.</p>
+                    <a asp-controller="Locations" asp-action="Index" class="btn btn-light">Manage Locations</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
