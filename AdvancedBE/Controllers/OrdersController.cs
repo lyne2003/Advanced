@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdvancedBE.Data;
 using AdvancedBE.Models;
+using System.Security.Claims;
 
 namespace AdvancedBE.Controllers
 {
@@ -20,9 +21,24 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Orders
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Order.ToListAsync());
+        //}
+
+        // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Order.ToListAsync());
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var orders = await _context.Order
+                .Include(o => o.Location) // Ensure Location is included
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                .Include(o => o.Feedbacks)
+                .ToListAsync();
+
+            return View(orders);
         }
 
         // GET: Orders/Details/5
