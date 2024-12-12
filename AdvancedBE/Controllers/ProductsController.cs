@@ -28,13 +28,57 @@ namespace AdvancedBE.Controllers
         //{
         //    return View(await _context.Product.ToListAsync());
         //}
-        public async Task<IActionResult> Indexclient()
+        //public async Task<IActionResult> Indexclient()
+        //{
+        //    var productsWithImages = await _context.Product
+        //        .Include(p => p.Images)
+        //        .ToListAsync();
+        //    return View(productsWithImages);
+        //}
+
+        // GET: Products/IndexClient
+        //public async Task<IActionResult> IndexClient(int? categoryId)
+        //{
+        //    // Fetch products, optionally filter by category
+        //    var productsQuery = _context.Product
+        //        .Include(p => p.Images)
+        //        .Include(p => p.Category)
+        //        .AsQueryable();
+
+        //    // Apply category filter if categoryId is provided
+        //    if (categoryId.HasValue)
+        //    {
+        //        productsQuery = productsQuery.Where(p => p.CategoryId == categoryId.Value);
+        //    }
+
+        //    // Fetch the products after filtering
+        //    var products = await productsQuery.ToListAsync();
+
+        //    // Return the filtered list of products to the view
+        //    return View(products);
+        //}
+        public async Task<IActionResult> IndexClient(int? categoryId)
         {
-            var productsWithImages = await _context.Product
+            // Fetch categories
+            var categories = await _context.Category.ToListAsync();
+            ViewBag.Categories = categories;
+            ViewBag.SelectedCategoryId = categoryId;
+
+            // Fetch products, optionally filter by category
+            var productsQuery = _context.Product
                 .Include(p => p.Images)
-                .ToListAsync();
-            return View(productsWithImages);
+                .Include(p => p.Category)
+                .AsQueryable();
+
+            if (categoryId.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.CategoryId == categoryId.Value);
+            }
+
+            var products = await productsQuery.ToListAsync();
+            return View(products);
         }
+
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)

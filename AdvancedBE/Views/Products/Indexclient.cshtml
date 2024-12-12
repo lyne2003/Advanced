@@ -2,6 +2,27 @@
 
 <h1 class="text-center my-4">Our Products</h1>
 
+<!-- Category Filter Dropdown -->
+<div class="mb-4 text-center">
+    <form method="get" asp-action="IndexClient" asp-controller="Products">
+        <select name="categoryId" class="form-select w-auto d-inline-block" onchange="this.form.submit()">
+            <option value="">All Categories</option>
+            @if (ViewBag.Categories != null)
+            {
+                foreach (var category in (IEnumerable<AdvancedBE.Models.Category>)ViewBag.Categories)
+                {
+                    var isSelected = ViewBag.SelectedCategoryId != null && (int)ViewBag.SelectedCategoryId == category.Id;
+                    <option value="@category.Id" selected="@isSelected">@category.NameCategory</option>
+                }
+            }
+        </select>
+    </form>
+</div>
+
+
+
+
+
 <div class="row">
     @foreach (var product in Model)
     {
