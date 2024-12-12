@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "User ID";
+}
+
+<h1>User ID</h1>
+
+<p>
+    @if (ViewBag.UserId != null)
+    {
+        <strong>Your logged-in User ID is:</strong> @ViewBag.UserId
+    }
+    else
+    {
+        <strong>You are not logged in.</strong>
+    }
+</p>

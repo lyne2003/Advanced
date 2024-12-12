@@ -60,6 +60,5 @@ namespace AdvancedBE.Models
         // Navigation Properties
         public string UserId { get; set; } // Foreign Key
         public AspNetUsers User { get; set; }
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }
