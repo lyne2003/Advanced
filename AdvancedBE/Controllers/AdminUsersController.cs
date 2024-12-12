@@ -19,11 +19,8 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: AdminUsers/Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string view = "admins")
         {
-            // Fetch all users
-            var allUsers = await _userManager.Users.ToListAsync();
-
             // Get admins (users with ClaimValue "admin")
             var admins = await (from user in _userManager.Users
                                 join claim in _context.UserClaims
@@ -38,7 +35,7 @@ namespace AdvancedBE.Controllers
                                  where claim.ClaimValue == "client"
                                  select user).ToListAsync();
 
-            // Pass the data to the ViewBag
+            ViewBag.ViewType = view.ToLower();
             ViewBag.Admins = admins;
             ViewBag.Clients = clients;
 
