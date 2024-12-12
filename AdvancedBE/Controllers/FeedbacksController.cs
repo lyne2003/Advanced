@@ -41,7 +41,7 @@ public class FeedbacksController : Controller
             // Save feedback to the database
             _context.Feedback.Add(feedback);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Orders"); // Redirect to Orders page
+            return RedirectToAction("IndexClient", "Orders"); // Redirect to Orders page
         //}
 
         //ViewBag.OrderId = orderId; // Retain orderId if model state is invalid

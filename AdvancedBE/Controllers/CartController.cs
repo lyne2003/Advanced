@@ -214,7 +214,7 @@ public class CartController : Controller
         HttpContext.Session.Remove("Cart");
 
         TempData["Success"] = "Order placed successfully!";
-        return RedirectToAction("Index", "Orders");
+        return RedirectToAction("IndexClient", "Orders");
     }
 
     [HttpGet]

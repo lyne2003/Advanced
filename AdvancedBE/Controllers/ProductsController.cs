@@ -18,7 +18,27 @@ namespace AdvancedBE.Controllers
         {
             _context = context;
         }
+        public async Task<IActionResult> IndexClient(int? categoryId)
+        {
+            // Fetch categories
+            var categories = await _context.Category.ToListAsync();
+            ViewBag.Categories = categories;
+            ViewBag.SelectedCategoryId = categoryId;
 
+            // Fetch products, optionally filter by category
+            var productsQuery = _context.Product
+                .Include(p => p.Images)
+                .Include(p => p.Category)
+                .AsQueryable();
+
+            if (categoryId.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.CategoryId == categoryId.Value);
+            }
+
+            var products = await productsQuery.ToListAsync();
+            return View(products);
+        }
         // GET: Products
         public async Task<IActionResult> Index()
         {
