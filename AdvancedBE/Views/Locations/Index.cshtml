@@ -4,40 +4,34 @@
     ViewData["Title"] = "Locations";
 }
 
-<h1>Locations</h1>
+<h1 class="text-center my-4">Locations</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
+<div class="mb-4 text-end">
+    <a asp-action="Create" class="btn btn-primary">Add New Location</a>
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Address Line 1</th>
-            <th>Address Line 2</th>
-            <th>City</th>
-            <th>Region</th>
-            <th>Zip Code</th>
-            <th>Country</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.AddressLine1</td>
-                <td>@item.AddressLine2</td>
-                <td>@item.City</td>
-                <td>@item.Region</td>
-                <td>@item.ZipCode</td>
-                <td>@item.Country</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row">
+    @foreach (var location in Model)
+    {
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@location.AddressLine1</h5>
+                    @if (!string.IsNullOrEmpty(location.AddressLine2))
+                    {
+                        <p class="card-text"><strong>Address Line 2:</strong> @location.AddressLine2</p>
+                    }
+                    <p class="card-text"><strong>City:</strong> @location.City</p>
+                    <p class="card-text"><strong>Region:</strong> @location.Region</p>
+                    <p class="card-text"><strong>Zip Code:</strong> @location.ZipCode</p>
+                    <p class="card-text"><strong>Country:</strong> @location.Country</p>
+                </div>
+                <div class="card-footer text-end">
+                    <a asp-action="Details" asp-route-id="@location.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@location.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@location.Id" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
