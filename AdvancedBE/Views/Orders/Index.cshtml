@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<AdvancedBE.Models.Order>
 
-<h1 class="text-center my-4">My Orders</h1>
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1 class="text-center my-4">Orders</h1>
 
 @if (Model.Any())
 {
@@ -15,7 +19,7 @@
                             data-bs-target="#collapse@order.Id"
                             aria-expanded="false"
                             aria-controls="collapse@order.Id">
-                        Order #@order.Id - Total: @order.TotalPrice.ToString("C") - Location: @(order.Location?.AddressLine1 ?? "N/A")
+                        Order #@order.Id - Total: @order.TotalPrice.ToString("C") - Location: @(order.Location?.AddressLine1 ?? "N/A") - UserId: @(order.UserId)
                     </button>
                 </h2>
                 <div id="collapse@order.Id"

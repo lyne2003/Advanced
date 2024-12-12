@@ -29,14 +29,13 @@ namespace AdvancedBE.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             var orders = await _context.Order
-                .Include(o => o.Location) // Ensure Location is included
-                .Include(o => o.OrderDetails)
-                    .ThenInclude(od => od.Product)
-                .Include(o => o.Feedbacks)
-                .ToListAsync();
+                    .Include(o => o.Location) // Ensure Location is included
+                    .Include(o => o.OrderDetails)
+                        .ThenInclude(od => od.Product)
+                    .Include(o => o.Feedbacks)
+                   // .Include(o => o.User) // Include user information
+                    .ToListAsync();
 
             return View(orders);
         }

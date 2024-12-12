@@ -15,6 +15,13 @@ namespace AdvancedBE.Data
         {
             base.OnModelCreating(builder);
 
+    //        builder.Entity<Order>()
+    //.HasOne(o => o.User) // One User to many Orders
+    //.WithMany() // No navigation property on User
+    //.HasForeignKey(o => o.UserId) // Foreign Key
+    //.OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
+
+
             //// Configure Product and Category relationship
             builder.Entity<Product>()
                 .HasOne(p => p.Category) // A Product belongs to one Category
