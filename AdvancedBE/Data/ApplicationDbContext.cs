@@ -14,6 +14,20 @@ namespace AdvancedBE.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            //// Configure Product and Category relationship
+            builder.Entity<Product>()
+                .HasOne(p => p.Category) // A Product belongs to one Category
+                .WithMany(c => c.Products) // A Category can have many Products
+                .HasForeignKey(p => p.CategoryId) // Foreign key is CategoryId
+                .OnDelete(DeleteBehavior.Restrict); // Avoid cascading deletes
+
+    //        builder.Entity<Product>()
+    //.HasOne(p => p.Category)
+    //.WithMany(c => c.Products)
+    //.HasForeignKey(p => p.CategoryId)
+    //.IsRequired();
+
             // Configure one-to-many relationship
             builder.Entity<Image>()
                 .HasOne(i => i.Product)

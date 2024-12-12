@@ -22,18 +22,8 @@ namespace AdvancedBE.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
-        }
-        //public async Task<IActionResult> Indexclient()
-        //{
-        //    return View(await _context.Product.ToListAsync());
-        //}
-        public async Task<IActionResult> Indexclient()
-        {
-            var productsWithImages = await _context.Product
-                .Include(p => p.Images)
-                .ToListAsync();
-            return View(productsWithImages);
+            var applicationDbContext = _context.Product.Include(p => p.Category);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -45,6 +35,7 @@ namespace AdvancedBE.Controllers
             }
 
             var product = await _context.Product
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -57,6 +48,7 @@ namespace AdvancedBE.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "NameCategory");
             return View();
         }
 
@@ -65,15 +57,13 @@ namespace AdvancedBE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Stock")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Stock,CategoryId")] Product product)
         {
-            if (ModelState.IsValid)
-            {
+            
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(product);
+
         }
 
         // GET: Products/Edit/5
@@ -89,6 +79,7 @@ namespace AdvancedBE.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "NameCategory", product.CategoryId);
             return View(product);
         }
 
@@ -97,15 +88,14 @@ namespace AdvancedBE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Stock")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Stock,CategoryId")] Product product)
         {
             if (id != product.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+           
                 try
                 {
                     _context.Update(product);
@@ -123,8 +113,7 @@ namespace AdvancedBE.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            return View(product);
+           
         }
 
         // GET: Products/Delete/5
@@ -136,6 +125,7 @@ namespace AdvancedBE.Controllers
             }
 
             var product = await _context.Product
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdvancedBE.Data;
 using AdvancedBE.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdvancedBE.Controllers
 {
@@ -20,12 +21,14 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Categories
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Category.ToListAsync());
         }
 
         // GET: Categories/Details/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +58,7 @@ namespace AdvancedBE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,NameCategory,DescCategory")] Category category)
         {
             if (ModelState.IsValid)
@@ -66,6 +71,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +92,7 @@ namespace AdvancedBE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NameCategory,DescCategory")] Category category)
         {
             if (id != category.Id)
@@ -117,6 +124,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +145,7 @@ namespace AdvancedBE.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var category = await _context.Category.FindAsync(id);
@@ -148,7 +157,7 @@ namespace AdvancedBE.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "admin")]
         private bool CategoryExists(int id)
         {
             return _context.Category.Any(e => e.Id == id);
