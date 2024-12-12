@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\AdvancedBE.csproj": {}
+    "C:\\Users\\User\\source\\repos\\AdvancedBE\\AdvancedBE\\AdvancedBE.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\AdvancedBE.csproj": {
+    "C:\\Users\\User\\source\\repos\\AdvancedBE\\AdvancedBE\\AdvancedBE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\AdvancedBE.csproj",
+        "projectUniqueName": "C:\\Users\\User\\source\\repos\\AdvancedBE\\AdvancedBE\\AdvancedBE.csproj",
         "projectName": "AdvancedBE",
-        "projectPath": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\AdvancedBE.csproj",
-        "packagesPath": "C:\\Users\\Charbel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\obj\\",
+        "projectPath": "C:\\Users\\User\\source\\repos\\AdvancedBE\\AdvancedBE\\AdvancedBE.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\source\\repos\\AdvancedBE\\AdvancedBE\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Charbel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -100,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

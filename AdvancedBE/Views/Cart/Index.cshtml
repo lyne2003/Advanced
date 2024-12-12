@@ -2,30 +2,57 @@
 
 <h1>Your Cart</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Items)
-        {
+@if (Model != null && Model.Items.Any())
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Price.ToString("C")</td>
-                <td>@item.Quantity</td>
-                <td>@item.TotalPrice.ToString("C")</td>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.TotalPrice.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<h3>Total: @Model.TotalPrice.ToString("C")</h3>
+    <h3>Total: @Model.TotalPrice.ToString("C")</h3>
 
-<form asp-action="Checkout" method="post">
-    <button type="submit" class="btn btn-primary">Checkout</button>
-</form>
+    <form asp-action="CompleteCheckout" method="post">
+        <div class="mb-3">
+            <label for="Location" class="form-label">Select a Location</label>
+            <select id="Location" name="LocationId" class="form-select" required>
+                <option value="">-- Select a Location --</option>
+                @if (ViewBag.Location != null && ((List<AdvancedBE.Models.Location>)ViewBag.Location).Any())
+                {
+                    foreach (var location in ViewBag.Location)
+                    {
+                        <option value="@location.Id">@location.AddressLine1, @location.City</option>
+                    }
+                }
+                else
+                {
+                    <option disabled>No locations available</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <a asp-action="AddLocation" class="btn btn-secondary">Add New Location</a>
+        </div>
+        <button type="submit" class="btn btn-primary">Place Order</button>
+    </form>
+}
+else
+{
+    <p>Your cart is empty. <a asp-controller="Products" asp-action="IndexClient">Start Shopping</a></p>
+}

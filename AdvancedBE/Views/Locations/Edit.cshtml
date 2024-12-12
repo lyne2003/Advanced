@@ -1,15 +1,13 @@
 ﻿@model AdvancedBE.Models.Location
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Location";
 }
 
-<h1>Edit</h1>
+<h1>Edit Location</h1>
 
-<h4>Location</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -58,17 +56,14 @@
                 <input asp-for="Landmark" class="form-control" />
                 <span asp-validation-for="Landmark" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
