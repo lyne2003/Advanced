@@ -3,9 +3,10 @@
 <h1 class="text-center my-4">Our Products</h1>
 
 <!-- Category Filter Dropdown -->
-<div class="mb-4 text-center">
-    <form method="get" asp-action="IndexClient" asp-controller="Products">
-        <select name="categoryId" class="form-select w-auto d-inline-block" onchange="this.form.submit()">
+<div class="d-flex justify-content-center mb-4">
+    <form method="get" asp-action="IndexClient" asp-controller="Products" class="d-flex align-items-center">
+        <label for="categoryDropdown" class="me-2 fw-bold">Filter by Category:</label>
+        <select id="categoryDropdown" name="categoryId" class="form-select w-auto" onchange="this.form.submit()">
             <option value="">All Categories</option>
             @if (ViewBag.Categories != null)
             {
