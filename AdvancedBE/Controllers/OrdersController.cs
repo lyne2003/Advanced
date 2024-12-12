@@ -30,10 +30,13 @@ namespace AdvancedBE.Controllers
                 .Include(o => o.Location) // Ensure Location is included
                 .Include(o => o.OrderDetails)
                     .ThenInclude(od => od.Product)
+                .Include(o => o.Feedbacks)
                 .ToListAsync();
 
             return View(orders);
         }
+
+
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)

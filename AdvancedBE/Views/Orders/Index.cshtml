@@ -43,6 +43,30 @@
                                 }
                             </tbody>
                         </table>
+
+                        <!-- Feedback Section -->
+                        @if (order.Feedbacks != null && order.Feedbacks.Any())
+                        {
+                            <h5 class="mt-4">Feedback:</h5>
+                            <ul class="list-group">
+                                @foreach (var feedback in order.Feedbacks)
+                                {
+                                    <li class="list-group-item">
+                                        <strong>Rating:</strong> @feedback.Rate/5<br />
+                                        <strong>Description:</strong> @feedback.Description
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning mt-3">No feedback available for this order.</div>
+
+                            <!-- Add Feedback Button -->
+                            <div class="mt-3 text-end">
+                                <a asp-controller="Feedbacks" asp-action="Create" asp-route-orderId="@order.Id" class="btn btn-primary btn-sm">Add Feedback</a>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,157 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using AdvancedBE.Data;
 using AdvancedBE.Models;
+using System.Security.Claims;
 
-namespace AdvancedBE.Controllers
+public class FeedbacksController : Controller
 {
-    public class FeedbacksController : Controller
+    private readonly ApplicationDbContext _context;
+
+    public FeedbacksController(ApplicationDbContext context)
     {
-        private readonly ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public FeedbacksController(ApplicationDbContext context)
+    // GET: Feedbacks/Create
+    public IActionResult Create(int orderId)
+    {
+        // Check if the order exists
+        var order = _context.Order.FirstOrDefault(o => o.Id == orderId);
+        if (order == null)
         {
-            _context = context;
+            return NotFound("Order not found");
         }
 
-        // GET: Feedbacks
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Feedback.ToListAsync());
-        }
+        // Pass the orderId to the view for creating feedback
+        ViewBag.OrderId = orderId;
+        return View();
+    }
 
-        // GET: Feedbacks/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+    // POST: Feedbacks/Create
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(int orderId, Feedback feedback)
+    {
+        //if (ModelState.IsValid)
+        //{
+            // Set the logged-in user's ID
+            feedback.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            feedback.OrderId = orderId;
 
-            var feedback = await _context.Feedback
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (feedback == null)
-            {
-                return NotFound();
-            }
+            // Save feedback to the database
+            _context.Feedback.Add(feedback);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Orders"); // Redirect to Orders page
+        //}
 
-            return View(feedback);
-        }
-
-        // GET: Feedbacks/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Feedbacks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Rate,Description")] Feedback feedback)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(feedback);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(feedback);
-        }
-
-        // GET: Feedbacks/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var feedback = await _context.Feedback.FindAsync(id);
-            if (feedback == null)
-            {
-                return NotFound();
-            }
-            return View(feedback);
-        }
-
-        // POST: Feedbacks/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Rate,Description")] Feedback feedback)
-        {
-            if (id != feedback.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(feedback);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FeedbackExists(feedback.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(feedback);
-        }
-
-        // GET: Feedbacks/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var feedback = await _context.Feedback
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (feedback == null)
-            {
-                return NotFound();
-            }
-
-            return View(feedback);
-        }
-
-        // POST: Feedbacks/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var feedback = await _context.Feedback.FindAsync(id);
-            if (feedback != null)
-            {
-                _context.Feedback.Remove(feedback);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool FeedbackExists(int id)
-        {
-            return _context.Feedback.Any(e => e.Id == id);
-        }
+        //ViewBag.OrderId = orderId; // Retain orderId if model state is invalid
+        //return View(feedback);
     }
 }
