@@ -1,0 +1,66 @@
+﻿@{
+    var admins = ViewBag.Admins as IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>;
+    var clients = ViewBag.Clients as IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>;
+}
+
+<h1 class="text-center">User Management</h1>
+
+<h2>Admins</h2>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Phone Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (admins.Any())
+        {
+            @foreach (var admin in admins)
+            {
+                <tr>
+                    <td>@admin.Email</td>
+                    <td>@admin.UserName</td>
+                    <td>@(admin.PhoneNumber ?? "N/A")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">No admins found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Clients</h2>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Phone Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (clients.Any())
+        {
+            @foreach (var client in clients)
+            {
+                <tr>
+                    <td>@client.Email</td>
+                    <td>@client.UserName</td>
+                    <td>@(client.PhoneNumber ?? "N/A")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">No clients found.</td>
+            </tr>
+        }
+    </tbody>
+</table>

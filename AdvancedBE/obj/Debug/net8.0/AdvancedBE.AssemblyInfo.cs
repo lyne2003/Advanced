@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvancedBE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+118f27ef632430617441aab0396854c980778b58")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97dddcc023381487deb972e598658b69a3afdbd7")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvancedBE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvancedBE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

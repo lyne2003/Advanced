@@ -1,96 +1,48 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using AdvancedBE.Data;
 
 namespace AdvancedBE.Controllers
 {
-    [Authorize(Roles = "admin")] // Ensure only admins can access this controller
     public class AdminUsersController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
-        public AdminUsersController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminUsersController(UserManager<IdentityUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
+            _context = context;
         }
 
+        // GET: AdminUsers/Index
         public async Task<IActionResult> Index()
         {
             // Fetch all users
-            var users = await _userManager.Users.ToListAsync();
+            var allUsers = await _userManager.Users.ToListAsync();
 
-            // Initialize lists for admins and clients
-            var admins = new List<IdentityUser>();
-            var clients = new List<IdentityUser>();
+            // Get admins (users with ClaimValue "admin")
+            var admins = await (from user in _userManager.Users
+                                join claim in _context.UserClaims
+                                on user.Id equals claim.UserId
+                                where claim.ClaimValue == "admin"
+                                select user).ToListAsync();
 
-            // Separate users based on claims
-            foreach (var user in users)
-            {
-                var roles = await _userManager.GetRolesAsync(user);
+            // Get clients (users with ClaimValue "client")
+            var clients = await (from user in _userManager.Users
+                                 join claim in _context.UserClaims
+                                 on user.Id equals claim.UserId
+                                 where claim.ClaimValue == "client"
+                                 select user).ToListAsync();
 
-                if (roles.Contains("admin"))
-                {
-                    admins.Add(user);
-                }
-                else
-                {
-                    clients.Add(user);
-                }
-            }
+            // Pass the data to the ViewBag
+            ViewBag.Admins = admins;
+            ViewBag.Clients = clients;
 
-            // Use strongly-typed models instead of ViewBag for better maintainability
-            var model = new AdminUsersViewModel
-            {
-                Admins = admins,
-                Clients = clients
-            };
-
-            return View(model);
+            return View();
         }
-
-        [HttpGet]
-        public async Task<IActionResult> ClientDetails(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                return NotFound("User ID is required.");
-            }
-
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if (user == null)
-            {
-                return NotFound("User not found.");
-            }
-
-            // Create a detailed view model to fetch user-specific information
-            var clientDetails = new ClientDetailsViewModel
-            {
-                User = user,
-                Roles = await _userManager.GetRolesAsync(user),
-                Claims = await _userManager.GetClaimsAsync(user)
-            };
-
-            return View(clientDetails);
-        }
-    }
-
-    // Strongly-typed view models for better maintainability and performance
-    public class AdminUsersViewModel
-    {
-        public List<IdentityUser> Admins { get; set; } = new List<IdentityUser>();
-        public List<IdentityUser> Clients { get; set; } = new List<IdentityUser>();
-    }
-
-    public class ClientDetailsViewModel
-    {
-        public IdentityUser User { get; set; }
-        public IList<string> Roles { get; set; }
-        public IList<System.Security.Claims.Claim> Claims { get; set; }
     }
 }
