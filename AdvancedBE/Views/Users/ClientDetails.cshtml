@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Client Details";
+}
+
+<h2>Client Details</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Client Information</h3>
+            <p><strong>Email:</strong> @ViewBag.Client.Email</p>
+            <p><strong>Username:</strong> @ViewBag.Client.UserName</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Summary</h3>
+            <p><strong>Total Orders:</strong> @((ViewBag.Orders as List<AdvancedBE.Models.Order>)?.Count ?? 0)</p>
+            <p><strong>Total Locations:</strong> @((ViewBag.Locations as List<AdvancedBE.Models.Location>)?.Count ?? 0)</p>
+        </div>
+    </div>
+
+    <hr />
+
+    <h3>Orders</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Total Price</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.Orders != null)
+            {
+                foreach (var order in (List<AdvancedBE.Models.Order>)ViewBag.Orders)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.TotalPrice.ToString("C")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">No orders found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Locations</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Address</th>
+                <th>City</th>
+                <th>Region</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.Locations != null)
+            {
+                foreach (var location in (List<AdvancedBE.Models.Location>)ViewBag.Locations)
+                {
+                    <tr>
+                        <td>@location.AddressLine1</td>
+                        <td>@location.City</td>
+                        <td>@location.Region</td>
+                        <td>@location.Country</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">No locations found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
