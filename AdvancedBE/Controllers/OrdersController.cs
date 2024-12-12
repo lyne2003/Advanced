@@ -21,7 +21,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexClient()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
