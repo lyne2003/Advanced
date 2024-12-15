@@ -2,9 +2,6 @@
 
 @{
     ViewData["Title"] = "Settings";
-}
-
-@{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
@@ -49,21 +46,34 @@
 <hr />
 
 <h2>Manage Users</h2>
+
 <table class="table table-bordered">
     <thead>
         <tr>
+            <th>User ID</th>
             <th>User Email</th>
             <th>Status</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var user in Model.Users)
         {
             <tr>
+                <td>@user.UserId</td>
                 <td>@user.Email</td>
                 <td>@user.Status</td>
+                <td>
+                    <form asp-action="UpdateUserClaim" method="post" style="display:inline;">
+                        <input type="hidden" name="userId" value="@user.UserId" />
+                        <select name="claimValue" class="form-select form-control-sm" required>
+                            <option value="admin" selected="@(user.Status == "Admin" ? "selected" : "")">Admin</option>
+                            <option value="client" selected="@(user.Status == "Client" ? "selected" : "")">Client</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
 </table>
-

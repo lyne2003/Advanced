@@ -67,29 +67,82 @@ public class AdminController : Controller
         return RedirectToAction("Settings");
     }
 
-    // Helper method to fetch users without the "admin" role
     private async Task<List<UserViewModel>> GetNonAdminUsers()
     {
-        var allUsers = _userManager.Users.ToList();
+        var allUsers = _userManager.Users.ToList(); // Fetch all users
         var nonAdminUsers = new List<UserViewModel>();
 
         foreach (var user in allUsers)
         {
-            var roles = await _userManager.GetRolesAsync(user);
-            if (!roles.Contains("admin"))
+            // Fetch user claims
+            var claims = await _userManager.GetClaimsAsync(user);
+            string status = "Pending"; // Default to pending
+
+            // Determine status based on claims
+            if (claims.Any(c => c.Value == "admin"))
             {
-                string status = roles.Any() ? "Client" : "Pending";
-                nonAdminUsers.Add(new UserViewModel
-                {
-                    UserId = user.Id,
-                    Email = user.Email,
-                    Status = status
-                });
+                // continue; // Skip admin users
+                status = "Admin";
             }
+
+            if (claims.Any(c => c.Value == "client"))
+            {
+                status = "Client";
+            }
+
+            nonAdminUsers.Add(new UserViewModel
+            {
+                UserId = user.Id,
+                Email = user.Email,
+                Status = status
+            });
         }
 
         return nonAdminUsers;
     }
+
+    //////////////////////////////////////////////////////
+    [HttpPost]
+    public async Task<IActionResult> UpdateUserClaim(string userId, string claimValue)
+    {
+        if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(claimValue))
+        {
+            TempData["Error"] = "Invalid user ID or claim value.";
+            return RedirectToAction("Settings");
+        }
+
+        // Find the user
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+        {
+            TempData["Error"] = "User not found.";
+            return RedirectToAction("Settings");
+        }
+
+        // Remove existing role claim
+        var claims = await _userManager.GetClaimsAsync(user);
+        var existingRoleClaim = claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
+        if (existingRoleClaim != null)
+        {
+            await _userManager.RemoveClaimAsync(user, existingRoleClaim);
+        }
+
+        // Add new role claim
+        var newClaim = new System.Security.Claims.Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", claimValue);
+        var result = await _userManager.AddClaimAsync(user, newClaim);
+
+        if (result.Succeeded)
+        {
+            TempData["Success"] = $"User claim updated to '{claimValue}'.";
+        }
+        else
+        {
+            TempData["Error"] = "Failed to update claim.";
+        }
+
+        return RedirectToAction("Settings");
+    }
+
 }
 
 // ViewModels
