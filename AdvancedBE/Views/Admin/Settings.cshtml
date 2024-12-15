@@ -67,8 +67,10 @@
                     <form asp-action="UpdateUserClaim" method="post" style="display:inline;">
                         <input type="hidden" name="userId" value="@user.UserId" />
                         <select name="claimValue" class="form-select form-control-sm" required>
-                            <option value="admin" selected="@(user.Status == "Admin" ? "selected" : "")">Admin</option>
-                            <option value="client" selected="@(user.Status == "Client" ? "selected" : "")">Client</option>
+                            @foreach (var role in Model.RoleNames)
+                            {
+                                <option value="@role" selected="@(user.Status == role ? "selected" : "")">@role</option>
+                            }
                         </select>
                         <button type="submit" class="btn btn-primary btn-sm">Update</button>
                     </form>

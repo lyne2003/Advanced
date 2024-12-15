@@ -38,7 +38,8 @@ public class AdminController : Controller
         var viewModel = new SettingsViewModel
         {
             Roles = roles,
-            Users = users
+            Users = users,
+            RoleNames = roles.Select(r => r.Name).ToList() // Extract role names for the dropdown
         };
 
         return View(viewModel);
@@ -67,41 +68,7 @@ public class AdminController : Controller
         return RedirectToAction("Settings");
     }
 
-    private async Task<List<UserViewModel>> GetNonAdminUsers()
-    {
-        var allUsers = _userManager.Users.ToList(); // Fetch all users
-        var nonAdminUsers = new List<UserViewModel>();
-
-        foreach (var user in allUsers)
-        {
-            // Fetch user claims
-            var claims = await _userManager.GetClaimsAsync(user);
-            string status = "Pending"; // Default to pending
-
-            // Determine status based on claims
-            if (claims.Any(c => c.Value == "admin"))
-            {
-                // continue; // Skip admin users
-                status = "Admin";
-            }
-
-            if (claims.Any(c => c.Value == "client"))
-            {
-                status = "Client";
-            }
-
-            nonAdminUsers.Add(new UserViewModel
-            {
-                UserId = user.Id,
-                Email = user.Email,
-                Status = status
-            });
-        }
-
-        return nonAdminUsers;
-    }
-
-    //////////////////////////////////////////////////////
+    // Update user claims
     [HttpPost]
     public async Task<IActionResult> UpdateUserClaim(string userId, string claimValue)
     {
@@ -143,6 +110,39 @@ public class AdminController : Controller
         return RedirectToAction("Settings");
     }
 
+    private async Task<List<UserViewModel>> GetNonAdminUsers()
+    {
+        var allUsers = _userManager.Users.ToList(); // Fetch all users
+        var nonAdminUsers = new List<UserViewModel>();
+
+        foreach (var user in allUsers)
+        {
+            // Fetch user claims
+            var claims = await _userManager.GetClaimsAsync(user);
+            string status = "Pending"; // Default to pending
+
+            // Determine status based on claims
+            if (claims.Any(c => c.Value == "admin"))
+            {
+                // continue; // Skip admin users
+                status = "Admin";
+            }
+
+            if (claims.Any(c => c.Value == "client"))
+            {
+                status = "Client";
+            }
+
+            nonAdminUsers.Add(new UserViewModel
+            {
+                UserId = user.Id,
+                Email = user.Email,
+                Status = status
+            });
+        }
+
+        return nonAdminUsers;
+    }
 }
 
 // ViewModels
@@ -150,6 +150,7 @@ public class SettingsViewModel
 {
     public IEnumerable<IdentityRole> Roles { get; set; }
     public List<UserViewModel> Users { get; set; }
+    public List<string> RoleNames { get; set; } // New property for dropdown options
 }
 
 public class UserViewModel
