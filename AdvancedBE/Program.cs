@@ -61,6 +61,7 @@
 
 using AdvancedBE.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -89,6 +90,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 // Add MVC services
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 // Add session services
 builder.Services.AddDistributedMemoryCache(); // For session storage

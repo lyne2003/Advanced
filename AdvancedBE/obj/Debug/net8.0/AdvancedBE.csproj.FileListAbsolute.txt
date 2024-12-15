@@ -590,3 +590,8 @@ C:\Users\User\source\repos\AdvancedBE\AdvancedBE\bin\Debug\net8.0\runtimes\win-a
 C:\Users\User\source\repos\AdvancedBE\AdvancedBE\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\User\source\repos\AdvancedBE\AdvancedBE\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\User\source\repos\AdvancedBE\AdvancedBE\obj\Debug\net8.0\AdvancedBE.sourcelink.json
+C:\Users\Charbel\source\repos\Advanced\AdvancedBE\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\Charbel\source\repos\Advanced\AdvancedBE\bin\Debug\net8.0\MailKit.dll
+C:\Users\Charbel\source\repos\Advanced\AdvancedBE\bin\Debug\net8.0\MimeKit.dll
+C:\Users\Charbel\source\repos\Advanced\AdvancedBE\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Charbel\source\repos\Advanced\AdvancedBE\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
