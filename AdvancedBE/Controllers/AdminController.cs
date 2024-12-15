@@ -119,19 +119,7 @@ public class AdminController : Controller
         {
             // Fetch user claims
             var claims = await _userManager.GetClaimsAsync(user);
-            string status = "Pending"; // Default to pending
-
-            // Determine status based on claims
-            if (claims.Any(c => c.Value == "admin"))
-            {
-                // continue; // Skip admin users
-                status = "Admin";
-            }
-
-            if (claims.Any(c => c.Value == "client"))
-            {
-                status = "Client";
-            }
+            string status = claims.FirstOrDefault()?.Value ?? "Pending";
 
             nonAdminUsers.Add(new UserViewModel
             {
