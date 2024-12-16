@@ -54,6 +54,12 @@ body {
     .nav-link:hover {
         color: black; 
     }
+ul {
+    list-style: none; /* Removes bullets */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+}
+
 
 /* Buttons */
 .btn-primary {
