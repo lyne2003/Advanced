@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdvancedBE.Data;
 using AdvancedBE.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdvancedBE.Controllers
 {
@@ -87,6 +88,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "NameCategory");
@@ -132,6 +134,7 @@ namespace AdvancedBE.Controllers
         //    }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(Product product, IFormFile ImageUpload)
         {
 
@@ -173,6 +176,7 @@ namespace AdvancedBE.Controllers
 
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -194,6 +198,7 @@ namespace AdvancedBE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Stock,CategoryId")] Product product)
         {
             if (id != product.Id)
@@ -223,6 +228,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -244,6 +250,7 @@ namespace AdvancedBE.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Product.FindAsync(id);

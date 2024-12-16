@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdvancedBE.Data;
 using AdvancedBE.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdvancedBE.Controllers
 {
@@ -20,11 +21,12 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: OrderDetails
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.OrderDetail.ToListAsync());
         }
-
+        [Authorize(Roles = "admin")]
         // GET: OrderDetails/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -44,6 +46,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: OrderDetails/Create
+        [Authorize(Roles = "client")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +57,7 @@ namespace AdvancedBE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "client")]
         public async Task<IActionResult> Create([Bind("Id,Quantity")] OrderDetail orderDetail)
         {
             if (ModelState.IsValid)

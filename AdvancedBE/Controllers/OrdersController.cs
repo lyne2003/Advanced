@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AdvancedBE.Data;
 using AdvancedBE.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdvancedBE.Controllers
 {
@@ -21,6 +22,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Orders
+        [Authorize(Roles = "client")]
         public async Task<IActionResult> IndexClient()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -35,9 +37,10 @@ namespace AdvancedBE.Controllers
 
             return View(orders);
         }
-     
+
 
         // GET: Orders
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
             var orders = await _context.Order
@@ -54,6 +57,7 @@ namespace AdvancedBE.Controllers
 
 
         // GET: Orders/Details/5
+        [Authorize(Roles = "client")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -72,6 +76,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Orders/Create
+        [Authorize(Roles = "client")]
         public IActionResult Create()
         {
             return View();
@@ -82,6 +87,7 @@ namespace AdvancedBE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "client")]
         public async Task<IActionResult> Create([Bind("Id,TotalPrice")] Order order)
         {
             if (ModelState.IsValid)
@@ -94,6 +100,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Orders/Edit/5
+        [Authorize(Roles = "client")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -114,6 +121,7 @@ namespace AdvancedBE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "client")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,TotalPrice")] Order order)
         {
             if (id != order.Id)
@@ -145,6 +153,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Orders/Delete/5
+        [Authorize(Roles = "client")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -165,6 +174,7 @@ namespace AdvancedBE.Controllers
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "client")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var order = await _context.Order.FindAsync(id);

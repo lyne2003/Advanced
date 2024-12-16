@@ -18,7 +18,6 @@ namespace AdvancedBE.Controllers
 		{
 			return View();
 		}
-		[Authorize(Roles ="client")]
 		public IActionResult Privacy()
 		{
 			return View();

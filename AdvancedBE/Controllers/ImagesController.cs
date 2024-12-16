@@ -20,6 +20,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: Images
+
         public async Task<IActionResult> Index()
         {
             return View(await _context.Image.ToListAsync());

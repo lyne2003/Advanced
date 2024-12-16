@@ -2,6 +2,7 @@
 using AdvancedBE.Data;
 using AdvancedBE.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 public class FeedbacksController : Controller
 {
@@ -13,6 +14,7 @@ public class FeedbacksController : Controller
     }
 
     // GET: Feedbacks/Create
+    [Authorize(Roles = "client")]
     public IActionResult Create(int orderId)
     {
         // Check if the order exists
@@ -30,10 +32,9 @@ public class FeedbacksController : Controller
     // POST: Feedbacks/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "client")]
     public IActionResult Create(int orderId, Feedback feedback)
     {
-        //if (ModelState.IsValid)
-        //{
             // Set the logged-in user's ID
             feedback.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             feedback.OrderId = orderId;
@@ -42,9 +43,6 @@ public class FeedbacksController : Controller
             _context.Feedback.Add(feedback);
             _context.SaveChanges();
             return RedirectToAction("IndexClient", "Orders"); // Redirect to Orders page
-        //}
 
-        //ViewBag.OrderId = orderId; // Retain orderId if model state is invalid
-        //return View(feedback);
     }
 }

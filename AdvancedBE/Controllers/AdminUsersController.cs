@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AdvancedBE.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdvancedBE.Controllers
 {
@@ -19,6 +20,7 @@ namespace AdvancedBE.Controllers
         }
 
         // GET: AdminUsers/Index
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index(string view = "admins")
         {
             // Get admins (users with ClaimValue "admin")

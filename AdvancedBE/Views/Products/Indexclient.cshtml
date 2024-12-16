@@ -63,17 +63,6 @@
                     <p class="card-text">@product.Description</p>
                     <h6 class="card-subtitle mb-2 text-muted">@product.Price.ToString("C")</h6>
 
-                    <p class="text-success">
-                        @if (product.Stock > 0)
-                        {
-                            @($"{product.Stock} in stock")
-                        }
-                        else
-                        {
-                            <span class="text-danger">Out of stock</span>
-                        }
-                    </p>
-
                     <!-- Add to Cart Button -->
                     <form asp-controller="Cart" asp-action="AddToCart" method="post" class="mt-auto">
                         <input type="hidden" name="productId" value="@product.Id" />

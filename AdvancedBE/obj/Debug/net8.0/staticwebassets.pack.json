@@ -13,6 +13,26 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\04660dd4-4a18-47f4-b623-2b877bb6121a.jpg",
+      "PackagePath": "staticwebassets\\images\\04660dd4-4a18-47f4-b623-2b877bb6121a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\402e353b-9c8c-46c8-beb5-d9bc6a698bc8.jpg",
+      "PackagePath": "staticwebassets\\images\\402e353b-9c8c-46c8-beb5-d9bc6a698bc8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\4a921344-8f9f-43f5-8989-9b5b926debc8.jpg",
+      "PackagePath": "staticwebassets\\images\\4a921344-8f9f-43f5-8989-9b5b926debc8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\7ae359d4-4e27-4edf-bd58-fffed252e4ba.jpg",
+      "PackagePath": "staticwebassets\\images\\7ae359d4-4e27-4edf-bd58-fffed252e4ba.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\8de4b34f-e9c0-4de5-a5b0-9b9b326a1e22.jpg",
+      "PackagePath": "staticwebassets\\images\\8de4b34f-e9c0-4de5-a5b0-9b9b326a1e22.jpg"
+    },
+    {
       "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\Logo.png",
       "PackagePath": "staticwebassets\\images\\Logo.png"
     },
@@ -31,6 +51,10 @@
     {
       "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\c060ae27-3526-4151-921c-42fa0af0e424.jpg",
       "PackagePath": "staticwebassets\\images\\c060ae27-3526-4151-921c-42fa0af0e424.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\c6a44434-75c0-4704-b313-139d83b764ff.jpg",
+      "PackagePath": "staticwebassets\\images\\c6a44434-75c0-4704-b313-139d83b764ff.jpg"
     },
     {
       "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\js\\site.js",
