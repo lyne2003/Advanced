@@ -96,16 +96,81 @@ namespace AdvancedBE.Controllers
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Stock,CategoryId")] Product product)
+        //{
+
+        //        _context.Add(product);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(Product product, string ImageUrl)
+        //{
+            
+        //        // Save the product first
+        //        _context.Add(product);
+        //        await _context.SaveChangesAsync();
+
+        //        // Save the image URL to the database
+        //        if (!string.IsNullOrEmpty(ImageUrl))
+        //        {
+        //            var image = new Image
+        //            {
+        //                UrlImage = ImageUrl,
+        //                ProductId = product.Id
+        //            };
+
+        //            _context.Image.Add(image);
+        //            await _context.SaveChangesAsync();
+        //        }
+
+        //        return RedirectToAction(nameof(Index));
+        //    }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Stock,CategoryId")] Product product)
+        public async Task<IActionResult> Create(Product product, IFormFile ImageUpload)
         {
-            
+
+                // Save the product first
                 _context.Add(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
 
+                // Handle the image upload
+                if (ImageUpload != null && ImageUpload.Length > 0)
+                {
+                    // Generate a unique file name
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageUpload.FileName);
+
+                    // Define the path to save the file
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                    // Save the file to the server
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await ImageUpload.CopyToAsync(stream);
+                    }
+
+                    // Save the image URL in the database
+                    var image = new Image
+                    {
+                        UrlImage = "/images/" + fileName,
+                        ProductId = product.Id
+                    };
+
+                    _context.Image.Add(image);
+                    await _context.SaveChangesAsync();
+                }
+
+                return RedirectToAction(nameof(Index));
+  
         }
+
+
+
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)

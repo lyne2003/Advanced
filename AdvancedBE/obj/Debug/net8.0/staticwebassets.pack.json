@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\images\\LogoZoomOut.png"
     },
     {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\c060ae27-3526-4151-921c-42fa0af0e424.jpg",
+      "PackagePath": "staticwebassets\\images\\c060ae27-3526-4151-921c-42fa0af0e424.jpg"
+    },
+    {
       "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
