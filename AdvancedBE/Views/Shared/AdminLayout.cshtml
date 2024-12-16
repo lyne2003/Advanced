@@ -13,7 +13,18 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #87CEEB;">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/Logo.png" alt="Logo" style="max-height: 40px; margin-right: 10px;" />
+                </a>
+
+                <!-- Navbar Toggler for Small Screens -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="adminNavbar">
@@ -32,9 +43,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Finances" asp-action="Index">Finances</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Settings">Settings</a>
