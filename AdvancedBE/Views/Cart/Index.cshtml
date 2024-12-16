@@ -29,26 +29,26 @@
     <h3>Total: @Model.TotalPrice.ToString("C")</h3>
 
     <form asp-action="CompleteCheckout" method="post">
-        <div class="mb-3">
-            <label for="Location" class="form-label">Select a Location</label>
-            <select id="Location" name="LocationId" class="form-select" required>
-                <option value="">-- Select a Location --</option>
-                @if (ViewBag.Location != null && ((List<AdvancedBE.Models.Location>)ViewBag.Location).Any())
-                {
-                    foreach (var location in ViewBag.Location)
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="flex-grow-1">
+                <select id="Location" name="LocationId" class="form-select w-100" required>
+                    <option value="">-- Select a Location --</option>
+                    @if (ViewBag.Location != null && ((List<AdvancedBE.Models.Location>)ViewBag.Location).Any())
                     {
-                        <option value="@location.Id">@location.AddressLine1, @location.City</option>
+                        foreach (var location in ViewBag.Location)
+                        {
+                            <option value="@location.Id">@location.AddressLine1, @location.City</option>
+                        }
                     }
-                }
-                else
-                {
-                    <option disabled>No locations available</option>
-                }
-            </select>
+                    else
+                    {
+                        <option disabled>No locations available</option>
+                    }
+                </select>
+            </div>
+            <a asp-action="AddLocation" class="btn btn-secondary mt-4">Add New Location</a>
         </div>
-        <div class="mb-3">
-            <a asp-action="AddLocation" class="btn btn-secondary">Add New Location</a>
-        </div>
+
         <button type="submit" class="btn btn-primary">Place Order</button>
     </form>
 }

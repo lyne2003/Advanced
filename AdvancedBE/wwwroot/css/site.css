@@ -1,30 +1,132 @@
+/* Base Font Size */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+/* Global Focus Styles */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #87CEEB; /* Sky Blue Focus Effect */
 }
 
+/* Page Layout */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
-}
-.navbar-brand {
-    font-weight: bold;
+    margin-bottom: 60px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f0f8ff; /* Light Sky Blue Background */
+    padding-bottom: 50xp;
 }
 
+
+/* Header and Navbar */
+.navbar {
+    background-color: #0056b3; /* Dark Blue */
+    color: white;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #87CEEB !important; /* Sky Blue Navbar Brand */
+}
+
+.nav-link {
+    color: white;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+    .nav-link:hover {
+        color: black; 
+    }
+
+/* Buttons */
+.btn-primary {
+    background-color: #0056b3; /* Dark Blue */
+    border: none;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #87CEEB; /* Sky Blue Hover */
+        color: #fff;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+/* Main Content */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+    main h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #0056b3; /* Dark Blue Heading */
+    }
+
+    main p {
+        font-size: 1.2rem;
+        color: #666;
+    }
+
+    main a {
+        color: #0056b3; /* Dark Blue Links */
+        text-decoration: none;
+    }
+
+        main a:hover {
+            color: #87CEEB; /* Sky Blue Hover */
+            text-decoration: underline;
+        }
+
+/* Footer Styles */
 .footer {
-    background-color: #f8f9fa;
-    color: #6c757d;
+    background-color: #87CEEB; /* Sky Blue Footer */
+    color: #fff;
+    padding: 5px 0;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+    .footer a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+        .footer a:hover {
+            color: #0056b3; /* Dark Blue on Hover */
+            text-decoration: underline;
+        }
+
+/* Responsive Utility */
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    main h1 {
+        font-size: 2rem;
+    }
+
+    main p {
+        font-size: 1rem;
+    }
 }

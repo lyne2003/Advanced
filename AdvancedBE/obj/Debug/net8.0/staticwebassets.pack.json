@@ -13,6 +13,22 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\Logo.png",
+      "PackagePath": "staticwebassets\\images\\Logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\Logo2.png",
+      "PackagePath": "staticwebassets\\images\\Logo2.png"
+    },
+    {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\Logo3.png",
+      "PackagePath": "staticwebassets\\images\\Logo3.png"
+    },
+    {
+      "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\images\\LogoZoomOut.png",
+      "PackagePath": "staticwebassets\\images\\LogoZoomOut.png"
+    },
+    {
       "Id": "C:\\Users\\Charbel\\source\\repos\\Advanced\\AdvancedBE\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
